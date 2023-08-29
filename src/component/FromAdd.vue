@@ -53,12 +53,20 @@
         </div>
             
         <div class='row mt-5 ml-5 space-x-3'>
+<<<<<<< HEAD
             <button @click="submit(user)" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+=======
+            <button @click="submit(user)" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ann-button">
+>>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
                  Save 
             </button>
 
             <router-link :to="{ name: 'adminUser' }">
+<<<<<<< HEAD
                 <button class="bg-white hover:bg-gray-100  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow content-between">
+=======
+                <button class="bg-white hover:bg-gray-100  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow content-between ann-button">
+>>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
                     Cancel
                 </button>
             </router-link>
