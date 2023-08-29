@@ -2,11 +2,7 @@
 import Sidebar from "./Sidebar.vue";
 import { onMounted, ref } from "vue";
 import { time } from "../composable/time.js";
-<<<<<<< HEAD
-import { useDataStore } from "../composable/dataHandlePinia";
-=======
 import { useDataStore } from "../composable/dataHandlerPinia";
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
 import { RouterLink } from "vue-router";
 
 const dataStore = useDataStore()
@@ -29,11 +25,8 @@ onMounted(async () => {
   data.value = await dataStore.getUserData();
   console.log(dataStore.userData);
   console.log(data.value);
-<<<<<<< HEAD
-=======
   console.log(time(data.createdOn));
   console.log(data.createdOn);
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
   if (data.value.length === 0) {
     show1.value = true;
   } else {
@@ -105,11 +98,7 @@ const show2 = ref(false)
           </div>
 
           <div class="flex justify-end mb-5 mr-5">
-<<<<<<< HEAD
-            <router-link :to="{ name: 'userAdd' }">
-=======
             <router-link :to="{ name: 'adminUserCreate' }">
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
               <button class="jump hover:bg-blue-500 bg-blue-300 text-black text-2xl px-4 py-2 rounded-md ann-button">
                 Add User
               </button>
@@ -172,15 +161,9 @@ const show2 = ref(false)
                 <td class="px-6 py-4 whitespace-nowrap ann-role">
                   {{ item.role }}
                 </td>
-<<<<<<< HEAD
-                <td class="px-6 py-4 whitespace-nowrap ann-created-on">
-                  <div class="flex justify-center">
-                    {{ time(item.createdOn) }}
-=======
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex justify-center">
                     <span class="ann-created-on">{{ time(item.createdOn) }}</span>
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap ann-updated-on">
@@ -190,32 +173,18 @@ const show2 = ref(false)
                 </td>
                 <td class="flex flex-row px-6 py-4 whitespace-nowrap space-x-2">
 
-<<<<<<< HEAD
-                  <router-link :to="{ name: 'UserEdit', params: { uId: item.id } }">
-                    <div class="ann-button">
-                      <button class="text-2xl px-4 py-2 rounded-md hover:bg-green-500 bg-green-400 ">
-                        Edit
-=======
                   <router-link :to="{ name: 'adminUserEdit', params: { userId: item.id } }">
                     <div>
                       <button class="text-2xl px-4 py-2 rounded-md hover:bg-green-500 bg-green-400 ann-button">
                         edit
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
                       </button>
                     </div>
                   </router-link>
 
-<<<<<<< HEAD
-                  <div class="ann-button">
-                    <button @click="showModal(item.id, item.username)"
-                      class="text-2xl px-4 py-2 rounded-md hover:bg-red-500 bg-red-400">
-                      Delete
-=======
                   <div>
                     <button @click="showModal(item.id, item.username)"
                       class="text-2xl px-4 py-2 rounded-md hover:bg-red-500 bg-red-400 ann-button">
                       delete
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
                     </button>
                   </div>
                 </td>

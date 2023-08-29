@@ -3,11 +3,7 @@ import { onMounted, ref, computed } from "vue";
 import { RouterLink } from "vue-router";
 import { time } from "../composable/time.js";
 import Sidebar from "./Sidebar.vue";
-<<<<<<< HEAD
-import { useDataStore } from "../composable/dataHandlePinia";
-=======
 import { useDataStore } from "../composable/dataHandlerPinia";
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
 
 const dataStore = useDataStore()
 
@@ -65,11 +61,7 @@ const filteredData = computed(() => {
           </div>
 
         <div class="flex justify-end mb-5 mr-5">
-<<<<<<< HEAD
-          <router-link :to="{ name: 'create' }">
-=======
           <router-link :to="{ name: 'adminAnnCreate' }">
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
             <button class="jump hover:bg-blue-500 bg-blue-300 text-black text-2xl px-4 py-2 rounded-md ann-button">
                 Create Announcement
               </button>

@@ -20,11 +20,7 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/compiler-sfc": "^3.2.31",
     "autoprefixer": "^10.4.14",
-<<<<<<< HEAD
     "cypress": "^12.10.0",
-=======
-    "cypress": "^12.17.4",
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
     "daisyui": "^2.6.0",
     "postcss": "^8.4.23",
     "sass": "^1.66.1",

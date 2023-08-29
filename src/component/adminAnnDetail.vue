@@ -3,11 +3,7 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { RouterLink } from "vue-router";
 import { time } from '../composable/time.js'
-<<<<<<< HEAD
-import { useDataStore } from "../composable/dataHandlePinia";
-=======
 import { useDataStore } from "../composable/dataHandlerPinia";
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
 
 const dataStore = useDataStore()
 
@@ -88,11 +84,7 @@ const { params } = useRoute();
 
 
 
-<<<<<<< HEAD
-        <RouterLink :to="{ name: 'edit' }"> 
-=======
         <RouterLink :to="{ name: 'adminAnnEdit' }"> 
->>>>>>> 5e3227d (Fix Router/Component Name/Class/Handler)
         <div class="mt-2"> 
           <button class="btn btn-lg p-3 rounded-xl text-xl hover:btn-success hover:text-black ann-button">edit</button>
         </div>

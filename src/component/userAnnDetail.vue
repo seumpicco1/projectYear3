@@ -53,8 +53,7 @@ const { params } = useRoute();
 
   <RouterLink :to="{ name: 'userAnn' }">
     <div class="mt-16">
-      <button class="border-4 p-3 rounded-xl text-xl text-black hover:bg-green-100 ann-button"
-      >
+      <button class="border-4 p-3 rounded-xl text-xl text-black hover:bg-green-100 ann-button">
         Back
       </button>
     </div>
