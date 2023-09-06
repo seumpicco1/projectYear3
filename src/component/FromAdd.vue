@@ -19,15 +19,27 @@
 
         <div class='row mt-5 ml-5'>
             <label class="text-2xl pl-5">Username</label>
-            <!-- <span class="bg-blue-300">{{ countTitle }}/45</span> -->
             <div>
                 <input v-model="user.username" maxlength="45" class="w-10/12 ml-5 mt-3 ann-username" type="text" data-required="true" required>
             </div>
         </div>
 
         <div class='row mt-5 ml-5'>
+            <label class="text-2xl pl-5">Password</label>
+            <div>
+                <input v-model="user.password" maxlength="45" class="w-10/12 ml-5 mt-3 ann-password" type="text" data-required="true" required>
+            </div>
+        </div>
+
+        <div class='row mt-5 ml-5'>
+            <label class="text-2xl pl-5">Confirm Password</label>
+            <div>
+                <input v-model="user.confirmpassword" maxlength="45" class="w-10/12 ml-5 mt-3 ann-confirm-password" type="text" data-required="true" required>
+            </div>
+        </div>
+
+        <div class='row mt-5 ml-5'>
             <label class="text-2xl pl-5">Name</label>
-            <!-- <span class="bg-blue-300">{{ countTitle }}/100</span> -->
             <div>
                 <input  v-model="user.name" maxlength="100" class="w-10/12 ml-5 mt-3 ann-name" type="text" data-required="true" required>
             </div>
@@ -35,7 +47,6 @@
 
         <div class='row mt-5 ml-5'>
             <label class="text-2xl pl-5">Email</label>
-            <!-- <span class="bg-blue-300">{{ countTitle }}/150</span> -->
             <div>
                 <input v-model="user.email" maxlength="150" class="w-10/12 ml-5 mt-3 ann-email" type="text" data-required="true" required>
             </div>
@@ -45,9 +56,8 @@
             <label class="text-2xl pl-5">Role</label>
             <div>
                 <select v-model="user.role " class="w-3/12 ml-5 mt-3 ann-role" data-required="true" required>
-                    <!-- <option  > Choose Role</option> -->
-                    <option  value="admin">admin</option>
-                    <option  value="announcer">announcer</option>
+                    <option value="admin">admin</option>
+                    <option value="announcer">announcer</option>
                 </select>
             </div>
         </div>

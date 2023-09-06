@@ -1,5 +1,5 @@
 <script setup>
-import Sidebar from "./Sidebar.vue";
+import sidebar from "./sidebar.vue";
 import { onMounted, ref } from "vue";
 import { time } from "../composable/time.js";
 import { useDataStore } from "../composable/dataHandlerPinia";
@@ -19,14 +19,8 @@ const showModal = (id, namee) => {
 
 };
 
-
-
 onMounted(async () => {
   data.value = await dataStore.getUserData();
-  console.log(dataStore.userData);
-  console.log(data.value);
-  console.log(time(data.createdOn));
-  console.log(data.createdOn);
   if (data.value.length === 0) {
     show1.value = true;
   } else {
@@ -42,15 +36,9 @@ const deleteUserFunc = async (id) => {
   isModalVisible.value = false
 }
 
-
-
-
-
 const timezoneName = new Intl.DateTimeFormat().resolvedOptions().timeZone;
 const show1 = ref(false)
 const show2 = ref(false)
-
-
 
 </script>
  
@@ -59,6 +47,7 @@ const show2 = ref(false)
     <div class="bg-red-300 h-44 ">
       <div class="space-x-28  ">
         <div class="space-x-5 ">
+
           <div class="text-white text-7xl flex justify-center ">Do you want to delete
             <span class=" pl-8 text-black"> {{ name.toLocaleUpperCase() }}?
             </span>
@@ -72,7 +61,6 @@ const show2 = ref(false)
               Cancel
             </button>
           </div>
-
         </div>
       </div>
     </div>
@@ -111,7 +99,7 @@ const show2 = ref(false)
         <div class="flex flex-grow  bg-white shadow overflow-hidden">
           <div class="flex">
 
-            <Sidebar id="nav" /> 
+            <sidebar id="nav" /> 
 
           </div>
           <table class="pr-96 w-screen  text-star">

@@ -1,11 +1,12 @@
 <script setup>
+import sidebar from "./sidebar.vue";
 import FromEdit from './FromEdit.vue';
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { RouterLink } from "vue-router";
 import { useDataStore } from "../composable/dataHandlerPinia";
 import router from "../router/index.js";
-import Sidebar from "./Sidebar.vue";
+
 
 const dataStore = useDataStore()
 const user  = ref([])
@@ -21,7 +22,7 @@ onMounted(async () => {
         <!-- <div class="h-full"> -->
             <div class="flex flex-grow bg-white shadow overflow-hidden">
                 <div class="flex-1 ">
-                    <!-- <Sidebar /> -->
+                    <!-- <sidebar/> -->
                     <div class="bg-gray-500 flex justify-start w-[300px] h-full flex-col font-bold ">
     <div class="w-full text-5xl flex justify-center text-slate-900 pt-6">
       SAS

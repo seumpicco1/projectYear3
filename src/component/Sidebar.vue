@@ -2,31 +2,33 @@
 </script>
  
 <template>
-
-  <div class="bg-gray-500 flex justify-start w-[300px] h-full flex-col font-bold ">
-    <div class="w-full text-5xl flex justify-center text-slate-900 pt-6">
-      SAS
-    </div>
-    
-    <router-link :to="{ name: 'adminAnn' }">
-      <div id="announcement" class="text-start text-white text-3xl border-gray-900 border-t pt-5 pl-5 h-20">
-        Announcement
+  <div class="w-[300px] h-screen bg-gray-400">
+    <div class="flex flex-col font-semibold">
+      <div class="flex bg-gray-500 text-slate-800 text-4xl font-bold border-gray-500 border-r border-b pl-5 pt-6 pb-6">
+        SAS
       </div>
-    </router-link>
+      
+      <router-link :to="{ name: 'adminAnn' }">
+        <div id="announcement" class="text-white text-2xl border-gray-500 border-r border-b pl-4 pt-4 pb-4">
+          Announcement
+        </div>
+      </router-link>
 
-    <router-link :to="{ name: 'adminUser' }"  >
-      <div id="user" class="text-start text-white text-3xl border-gray-900 border-y pt-5 pl-5 h-20">
-        User
-      </div>
-    </router-link>
+      <router-link :to="{ name: 'adminUser' }">
+        <div id="user" class=" text-white text-2xl border-gray-500 border-r border-b pl-4 pt-4 pb-4">
+          User
+        </div>
+      </router-link>
+
+      <router-link :to="{ name: 'adminUserMatch' }">
+        <div id="match" class=" text-white text-2xl border-gray-500 border-r border-b pl-4 pt-4 pb-4">
+          Match Password
+        </div>
+      </router-link>
+
+    </div> 
   </div>
-
 </template>
  
-<style lang="css" scoped>
- .c {
-  /* background-color: green; */
-
-  background-color: rgb(49 196 141 / var(--tw-bg-opacity));
-}
+<style scoped>
 </style>

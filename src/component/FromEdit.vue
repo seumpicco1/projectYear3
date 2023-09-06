@@ -3,7 +3,6 @@ import { defineProps } from 'vue';
 import { RouterLink } from "vue-router";
 import { useRouter } from "vue-router";
 import { ref, computed, onMounted } from "vue";
-import Sidebar from "./Sidebar.vue";
 import { time } from "../composable/time.js";
 import { useDataStore } from "../composable/dataHandlerPinia";
 const dataStore = useDataStore()

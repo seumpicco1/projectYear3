@@ -1,5 +1,5 @@
 <script setup>
-import Sidebar from "./Sidebar.vue";
+import sidebar from "./sidebar.vue";
 import FromAdd from "./FromAdd.vue"
 import { useDataStore } from "../composable/dataHandlerPinia";
 import { useRouter } from "vue-router";
@@ -23,7 +23,7 @@ import {ref} from "vue"
   <div class="h-full w-full ">
       <div class="flex flex-grow bg-white shadow overflow-hidden">
         <div class="flex-1 ">
-          <!-- <Sidebar /> -->
+          <!-- <sidebar /> -->
             <div class="bg-gray-500 flex justify-start w-[300px] h-full flex-col font-bold ">
               <div class="w-full text-5xl flex justify-center text-slate-900 pt-6">
                 SAS

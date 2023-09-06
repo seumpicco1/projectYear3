@@ -8,16 +8,12 @@ import userAnnDetail from "../component/userAnnDetail.vue"
 import adminUser from "../component/AdminUser.vue"
 import adminUserCreate from "../component/adminUserCreate.vue"
 import adminUserEdit from "../component/adminUserEdit.vue"
+import adminUserMatch from "../component/adminUserMatch.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: 'c',
   routes: [
-    {
-      path: "/admin/user",
-      name: "adminUser",
-      component: adminUser
-    },
     {
       path: "/admin/announcement",
       name: "adminAnn",
@@ -49,6 +45,11 @@ const router = createRouter({
       component: userAnnDetail
     },
     {
+      path: "/admin/user",
+      name: "adminUser",
+      component: adminUser
+    },
+    {
       path: "/admin/user/add",
       name: "adminUserCreate",
       component: adminUserCreate
@@ -57,6 +58,11 @@ const router = createRouter({
       path: "/admin/user/:userId/edit",
       name: "adminUserEdit",
       component: adminUserEdit
+    },
+    {
+      path: "/admin/user/match",
+      name: "adminUserMatch",
+      component: adminUserMatch
     },
   ],
 });
