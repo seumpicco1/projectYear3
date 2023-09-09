@@ -79,7 +79,7 @@ export const useDataStore = defineStore('Data',()=>{
     }
 
     const deleteAnn = async (id) => {
-      const confirmDelete = confirm("Do you want to delete");
+      const confirmDelete = confirm("Do you want to delete?");
       if(confirmDelete){
         try {
         const res = await fetch(`${API_ANN}/${id}`, {method: "DELETE"})

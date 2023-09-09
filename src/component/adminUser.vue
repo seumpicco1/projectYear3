@@ -43,7 +43,7 @@ const show2 = ref(false)
 </script>
  
 <template>
-  <div class="" v-show="isModalVisible">
+  <div v-show="isModalVisible">
     <div class="bg-red-300 h-44 ">
       <div class="space-x-28  ">
         <div class="space-x-5 ">
@@ -65,68 +65,69 @@ const show2 = ref(false)
       </div>
     </div>
   </div>
-  <div class="w-full h-full">
+
+  <div class="w-full h-full bg-white">
 
     <div v-show="show1">
       <h1 class="font-bold Announcement text-6xl">No Users</h1>
     </div>
 
     <div v-show="show2">
+      <div class="flex flex-row">
 
-      <div class="bg-gray-200">
-        <!-- <div class="flex justify-center text-black font-extrabold">
-          <h1>SIT Announcement System (SAS)</h1>
-        </div> -->
-        <div class=" text-black text-6xl flex justify-center pt-5"> User Management</div>
-
-        <div class="flex flex-col">
-          <div class="flex font-bold mb-4 mt-10 text-xl pl-10">
-            Date/Time shown in Timezone&nbsp; 
-            <span class="text-blue-600"> {{ timezoneName }}</span>
-          </div>
-
-          <div class="flex justify-end mb-5 mr-5">
-            <router-link :to="{ name: 'adminUserCreate' }">
-              <button class="jump hover:bg-blue-500 bg-blue-300 text-black text-2xl px-4 py-2 rounded-md ann-button">
-                Add User
-              </button>
-            </router-link>
-          </div>
+        <div class="flex-grow">
+          <sidebar/>
         </div>
-      </div>
 
-      <div class="h-screen">
-        <div class="flex flex-grow  bg-white shadow overflow-hidden">
-          <div class="flex">
+        <div class="flex flex-col w-full text-black">
+          <div class="flex justify-center font-semibold text-5xl pt-5">User Management</div>
+          <div class="flex flex-col w-full text-black">
+            <div class="flex flex-row mb-5">
+                
+              <div class="font-bold text-xl pt-8 pl-10">
+                Date/Time shown in Timezone&nbsp; 
+                <span class="text-blue-600">{{ timezoneName }}</span>
+              </div>
 
-            <sidebar id="nav" /> 
+              <div class="ml-auto pt-5 pr-10">
+                <router-link :to="{ name: 'adminUserCreate' }">
+                  <button class="jump hover:bg-blue-500 bg-blue-300 text-black text-2xl px-4 py-2 rounded-md ann-button">
+                    Add User
+                  </button>
+                </router-link>
+              </div>
 
+            </div>
           </div>
-          <table class="pr-96 w-screen  text-star">
-            <thead class="bg-gray-400 text-black justify-center">
+
+      <div class="h-full">
+        <div class="flex justify-center flex-grow bg-white overflow-hidden">
+           <div class="overflow-y-scroll h-[612px]">
+              <table class="w-full">
+                <thead class="bg-gray-400 text-black">
               <tr>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   No.
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Username
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Name
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Email
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Role
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Created On
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Updated On
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Action
                 </th>
               </tr>
@@ -164,7 +165,7 @@ const show2 = ref(false)
                   <router-link :to="{ name: 'adminUserEdit', params: { userId: item.id } }">
                     <div>
                       <button class="text-2xl px-4 py-2 rounded-md hover:bg-green-500 bg-green-400 ann-button">
-                        edit
+                        Edit
                       </button>
                     </div>
                   </router-link>
@@ -172,7 +173,7 @@ const show2 = ref(false)
                   <div>
                     <button @click="showModal(item.id, item.username)"
                       class="text-2xl px-4 py-2 rounded-md hover:bg-red-500 bg-red-400 ann-button">
-                      delete
+                      Delete
                     </button>
                   </div>
                 </td>
@@ -182,8 +183,10 @@ const show2 = ref(false)
         </div>
       </div>
     </div>
-
+    </div>
   </div>
+</div>
+ </div>
 </template>
  
 <style lang="css" scoped>

@@ -17,77 +17,63 @@ const updateUserFunc = async (data) => {await dataStore.putUpdateUser(data); rou
 </script>
  
 <template>
-    <div class='w-full h-screen text-black'>
+    <div class='flex flex-col text-black ml-5'>
+        <div class="text-4xl font-semibold pt-5 pl-3">
+            Edit User
+        </div>
 
-        <h2 class="text-4xl">Edit User</h2>
-        <div class='row mt-5 ml-5'>
-
-            <label class="text-2xl pl-5">Username</label>
-            <!-- <span class="bg-blue-300">{{ countTitle }}/45</span> -->
+        <div class='mt-5 ml-10'>
+            <label class="text-2xl">Username</label>
             <div>
-                <input v-model="user.username" maxlength="45" class="w-10/12 ml-5 mt-3 ann-username" type="text"
-                    data-required="true" required>
+                <input v-model="user.username" maxlength="45" class="w-10/12 mt-1 ann-username" type="text" data-required="true" required>
             </div>
         </div>
 
-        <div class='row mt-5 ml-5'>
-            <label class="text-2xl pl-5">Name</label>
-            <!-- <span class="bg-blue-300">{{ countTitle }}/100</span> -->
+        <div class='mt-5 ml-10'>
+            <label class="text-2xl">Name</label>
             <div>
-                <input v-model="user.name" maxlength="100" class="w-10/12 ml-5 mt-3 ann-name" type="text"
-                    data-required="true" required>
+                <input v-model="user.name" maxlength="100" class="w-10/12 mt-1 ann-name" type="text" data-required="true" required>
             </div>
         </div>
 
-        <div class='row mt-5 ml-5'>
-            <label class="text-2xl pl-5">Email</label>
-            <!-- <span class="bg-blue-300">{{ countTitle }}/150</span> -->
+        <div class='mt-5 ml-10'>
+            <label class="text-2xl">Email</label>
             <div>
-                <input v-model="user.email" maxlength="150" class="w-10/12 ml-5 mt-3 ann-email" type="text"
-                    data-required="true" required>
+                <input v-model="user.email" maxlength="150" class="w-10/12 mt-1 ann-email" type="text" data-required="true" required>
             </div>
         </div>
 
-        <div class='row mt-5 ml-5'>
-            <label class="text-2xl pl-5">Role</label>
+        <div class='mt-5 ml-10'>
+            <label class="text-2xl">Role</label>
             <div>
-                <select v-model="user.role" class="w-3/12 ml-5 mt-3 ann-role" data-required="true" required>
-                    <!-- <option  > Choose Role</option> -->
+                <select v-model="user.role" class="w-3/12 mt-1 ann-role" data-required="true" required>
                     <option value="admin">admin</option>
                     <option value="announcer">announcer</option>
                 </select>
             </div>
 
-
-            <div class="flex justify-start space-x-8">
-                <p class="text-2xl mt-7">
-                    Create on <span class="ann-created-on"> {{ time(user.createdOn) }} </span>
+            <div class="flex space-x-8">
+                <p class="text-xl mt-7 border-4 border-gray-300 p-2 font-semibold">
+                    Created on : <span class="ann-created-on"> {{ time(user.createdOn) }} </span>
                 </p>
-                <p class="text-2xl mt-7">
-                    Update on <span class="ann-updated-on"> {{ time(user.updatedOn) }} </span>
+                <p class="text-xl mt-7 border-4 border-gray-300 p-2 font-semibold">
+                    Updated on : <span class="ann-updated-on"> {{ time(user.updatedOn) }} </span>
                 </p>
             </div>
+        </div>     
 
-        </div>
-
-
-
-
-
-        <div class='row mt-5 ml-5 space-x-3'>
-            <button @click="updateUserFunc(user)"
-                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ann-button">
-                Save
+        <div class="mt-8 ml-10 space-x-3">
+            <button @click="updateUserFunc(user)" class="bg-white hover:bg-gray-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button">
+                    Save 
             </button>
 
             <router-link :to="{ name: 'adminUser' }">
-                <button
-                    class="bg-white hover:bg-gray-100  text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow content-between ann-button">
+                <button class="bg-white hover:bg-gray-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button">
                     Cancel
                 </button>
             </router-link>
         </div>
-
+        
     </div>
 </template>
  

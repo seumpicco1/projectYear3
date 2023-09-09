@@ -59,7 +59,7 @@ const filteredData = computed(() => {
         </div>
 
         <div class="flex flex-col w-full text-black">
-          <div class="flex justify-center font-semibold text-5xl pt-5">User Management</div>
+          <div class="flex justify-center font-semibold text-5xl pt-5">Announcement Management</div>
           <div class="flex flex-col w-full text-black">
             <div class="flex flex-row mb-5">
                 
@@ -85,28 +85,28 @@ const filteredData = computed(() => {
                 <table class="w-full">
                   <thead class="bg-gray-400 text-black">
                     <tr>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         No.
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Title
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Category
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Publish Date
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Close Date
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Display
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         User Views
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 uppercase tracking-wider">
+                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Action
                       </th>
                     </tr>
@@ -150,13 +150,13 @@ const filteredData = computed(() => {
                         <router-link :to="{ name: 'adminAnnDetail', params: { annId: item.id } }">
                           <div class="ann-button">
                             <button class="text-2xl px-4 py-2 rounded-md bg-green-400 hover:bg-green-500 ann-button" >
-                              view
+                              View
                             </button>
                           </div>
                         </router-link>
 
                         <button @click="deleteAnn(item.id)" class="text-2xl px-4 py-2 rounded-md bg-red-400 hover:bg-red-500 ann-button ann-delete">
-                          delete
+                          Delete
                         </button>
                       </td>
                     </tr>
