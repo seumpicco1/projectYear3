@@ -1,16 +1,36 @@
 <script setup>
-    import { defineProps } from 'vue';
-            
+    import { defineProps, ref, onMounted, watch } from 'vue';
         const props = defineProps({
             user : {require : true}
         })
+        
+        // onMounted(async () => {
+        // });
+
+        const confirmPassword = ref('');
+
+        // watch(props.user.password, () => {
+        //     return props.user.password.trim().split(' ').join('')
+        // });
+
+        // watch(confirmPassword, () => {
+        //     return confirmPassword.trim().split(' ').join('')
+        // });
+
+        // const checkpassword = () =>{
+        //     if(props.user.password.trim().split(' ').join('') === confirmPassword.trim().split(' ').join('')){
+        //         return true
+        //     } 
+        //     return false
+        // }       
 
         const submit = ()=>{
-            console.log();
-            emits("submit", props.user)
+            const trimBetweenPassword = props.user.password.trim().split(' ').join('');
+            emits("submit", { ...props.user, password: trimBetweenPassword.value})
         }
     
         const emits  = defineEmits(["submit"])
+
 </script>
  
 <template>
@@ -22,42 +42,42 @@
         <div class='mt-5 ml-10'>
             <label class="text-2xl">Username</label>
             <div>
-                <input v-model="user.username" maxlength="45" class="w-10/12 mt-1 ann-username" type="text" data-required="true" required>
+                <input v-model.trim="user.username" maxlength="45" class="w-10/12 mt-1 ann-username" type="text" data-required="true" required>
             </div>
         </div>
 
         <div class='mt-5 ml-10'>
             <label class="text-2xl">Password</label>
             <div>
-                <input v-model="user.password" maxlength="14" class="w-10/12 mt-1 ann-password" type="password" data-required="true" required>
+                <input v-model.trim="user.password" maxlength="14" class="w-10/12 mt-1 ann-password" type="password" data-required="true" required>
             </div>
         </div>
 
         <div class='mt-5 ml-10'>
             <label class="text-2xl">Confirm Password</label>
             <div>
-                <input v-model="user.confirmpassword" maxlength="14" class="w-10/12 mt-1 ann-confirm-password" type="password" data-required="true" required>
+                <input v-model.trim="confirmPassword" maxlength="14" class="w-10/12 mt-1 ann-confirm-password" type="password" data-required="true" required>
             </div>
         </div>
 
         <div class='mt-5 ml-10'>
             <label class="text-2xl">Name</label>
             <div>
-                <input  v-model="user.name" maxlength="100" class="w-10/12 mt-1 ann-name" type="text" data-required="true" required>
+                <input  v-model.trim="user.name" maxlength="100" class="w-10/12 mt-1 ann-name" type="text" data-required="true" required>
             </div>
         </div>
 
         <div class='mt-5 ml-10'>
             <label class="text-2xl">Email</label>
             <div>
-                <input v-model="user.email" maxlength="150" class="w-10/12 mt-1 ann-email" type="text" data-required="true" required>
+                <input v-model.trim="user.email" maxlength="150" class="w-10/12 mt-1 ann-email" type="text" data-required="true" required>
             </div>
         </div>
 
         <div class='mt-5 ml-10'>
             <label class="text-2xl">Role</label>
             <div>
-                <select v-model="user.role " class="w-3/12 mt-1 ann-role" data-required="true" required>
+                <select v-model.trim="user.role " class="w-3/12 mt-1 ann-role" data-required="true" required>
                     <option value="admin">admin</option>
                     <option value="announcer">announcer</option>
                 </select>

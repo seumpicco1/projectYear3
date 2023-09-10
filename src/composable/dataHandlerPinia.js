@@ -190,6 +190,34 @@ export const useDataStore = defineStore('Data',()=>{
           console.log(error);
         }
       }
+
+      const checkPasswordMatch = async (data) => {
+        try {
+          const res = await fetch(`${API_USER}/match`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+          if (res.ok) {
+            console.log("password match!");
+            return "PasswordMatch"
+          } else if (res.status === 401) {
+            console.log("password don't match!");
+            return "PasswordNotMatch";
+          } else if (res.status === 404) {
+            console.log("Username not found!");
+            return "UserNotFound";
+          } else {
+            console.log("An error occurred!");
+            return false;
+          }
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
+      };
 // =================================================================================================================================================
 // Catagory
       const getCategoriesId = async () => {
@@ -205,7 +233,7 @@ export const useDataStore = defineStore('Data',()=>{
           console.log(error);
         }
       }
-    return { userData, annData, getAnnData, getOneAnnData, postCreateAnn, putUpdateAnn, deleteAnn, getActiveOrCloseMode, getUserData, deleteUser, getCategoriesId, getOneUserData, createUser, putUpdateUser}
+    return { userData, annData, getAnnData, getOneAnnData, postCreateAnn, putUpdateAnn, deleteAnn, getActiveOrCloseMode, getUserData, deleteUser, getCategoriesId, getOneUserData, createUser, putUpdateUser, checkPasswordMatch}
 })
 
 if (import.meta.hot) {  

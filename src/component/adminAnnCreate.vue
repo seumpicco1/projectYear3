@@ -89,7 +89,6 @@ const createAnn = async (data)=>{
   dateFormat()
   await dataStore.postCreateAnn(data)
   router.push({name : 'adminAnn'})
- 
   }
 
 const countTitle = computed(()=>{
@@ -170,14 +169,6 @@ const countDes = computed(()=>{
     </button>
   </RouterLink>
 	</div>
-
-
-
-
-
-
-
-
 
 </template>
 
@@ -273,11 +264,7 @@ transition:background-color .5s ease;
 }
 .no-placeholder #registration-form input[type=text] {
 	padding: 10px 20px;
-
 }
-
-
-
 
 .parsley-error-list{
 background-color:#C34343;

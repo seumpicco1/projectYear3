@@ -13,10 +13,10 @@ const user  = ref([])
 const { params } = useRoute();
 onMounted(async () => {
   user.value = await dataStore.getOneUserData(params.userId);
-    console.log(user.value);
-
+  console.log(user.value);
 });
 </script>
+
 <template>
   <div class="h-full w-full ">
     <div class="flex flex-row bg-white">

@@ -1,19 +1,34 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
-import { RouterLink } from "vue-router";
 import { useDataStore } from "../composable/dataHandlerPinia";
-import router from "../router/index.js";
 import sidebar from "./sidebar.vue";
 
 const dataStore = useDataStore()
-const user = ref([])
-const { params } = useRoute();
 
-onMounted(async () => {
-  // user.value = await dataStore.getOneUserData(params.userId);
-  //   console.log(user.value);
-});
+const user = ref({
+  username: "",
+  password: "",
+})
+
+const passwordMatchingResult = ref(null);
+
+const passwordMatch = async (user) => {
+  
+  passwordMatchingResult.value = null; 
+  const result = await dataStore.checkPasswordMatch(user);
+
+  if (result !== null) {
+    if (result === "UserNotFound") {
+      passwordMatchingResult.value = "The specified username DOES NOT exist"
+    } else if (result === "PasswordNotMatch") {
+      passwordMatchingResult.value = "Password NOT Matched"
+    } else if (result === "PasswordMatch" ) {
+      passwordMatchingResult.value = "Password Matched"
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -25,37 +40,49 @@ onMounted(async () => {
       </div>
 
       <div class="w-full">
-        <div class="flex h-full justify-center items-center">
-          <div class="box-content h-1/2 w-1/2 p-4 border-4 text-black">
+        <div class="flex flex-col h-full justify-center items-center">
+            <div class="box-content h-1/2 w-1/2 p-4 border-4 text-black">
 
-            <div class="text-4xl font-semibold pt-4 pl-4">
-              Match Password
-            </div>
-
-            <div class="mt-8 ml-8">
-              <label class="text-2xl font-light">Username</label>
-              <div>
-                  <input v-model="user.username" minlength="1" maxlength="45" class="w-2/3 mt-1 ann-username" type="text" data-required="true" required>
+              <div class="text-4xl font-semibold pt-4 pl-4">
+                Match Password
               </div>
-            </div>
 
-            <div class="mt-8 ml-8">
-              <label class="text-2xl font-light">Password</label>
-              <div>
-                  <input v-model="user.password" minlength="8" maxlength="14" class="w-2/3 mt-1 ann-password" type="text" data-required="true" required>
+              <div class="mt-8 ml-8">
+                <label class="text-2xl font-light">Username</label>
+                <div>
+                    <input v-model="user.username" minlength="1" maxlength="45" class="w-2/3 mt-1 ann-username" type="text" data-required="true" required>
+                </div>
               </div>
-            </div>
 
-            <div class="mt-10 ml-8">
-              <button @click="PasswordMatch(data)" class="bg-white hover:bg-gray-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button">
-                  Match or not
-              </button>
-            </div>
+              <div class="mt-8 ml-8">
+                <label class="text-2xl font-light">Password</label>
+                <div>
+                    <input v-model="user.password" minlength="8" maxlength="14" class="w-2/3 mt-1 ann-password" type="password" data-required="true" required>
+                </div>
+              </div>
 
-          </div>
+              <div class="mt-10 ml-8">
+                <button @click="passwordMatch(user)" class="bg-white hover:bg-gray-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button">
+                    Match or not
+                </button>
+              </div>
+              
+              <div class="mt-8 ml-8">
+                <div v-if="passwordMatchingResult === 'The specified username DOES NOT exist'" class="border-l-8 border-yellow-600 p-3 text-yellow-400 text-2xl font-bold ">
+                    {{ passwordMatchingResult }}
+                </div>
+                <div v-if="passwordMatchingResult === 'Password NOT Matched'" class="border-l-8 border-red-600 p-3 text-red-400 text-2xl font-bold ">
+                    {{ passwordMatchingResult }}
+                </div>
+                <div v-if="passwordMatchingResult === 'Password Matched'" class="border-l-8 border-green-600 p-3 text-green-400 text-2xl font-bold ">
+                    {{ passwordMatchingResult }}
+                </div>
+                
+              </div>
+
+            </div>
         </div>
       </div>
-
     </div>
   </div>  
 </template>
