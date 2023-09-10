@@ -171,10 +171,15 @@ export const useDataStore = defineStore('Data',()=>{
         },
         body: JSON.stringify(data),
       });
-      const updatedData = await response.json();
-      data.value = updatedData;
+  
+      if (response.ok) {
+        const updatedData = await response.json();
+        data.value = updatedData;
+      } else {
+        console.error('Failed to update user:', response.status);
+      }
     } catch (error) {
-      console.log(error);
+      console.error('An error occurred while updating user:', error);
     }
   }
 

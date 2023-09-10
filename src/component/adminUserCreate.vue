@@ -8,18 +8,17 @@ import {ref,onMounted} from "vue"
                 
   const dataStore = useDataStore()
   const user = ref({ role:"announcer"})
-  const confirmPassword = ref()
   const router = useRouter()
   
-  const submit = async()=>{
+  const submit = async(user)=>{
     console.log(user.value);
-    user.value.password = user.value.password.split(' ').join('');
-    await dataStore.createUser(user.value)
+    await dataStore.createUser(user)
     router.push({name : 'adminUser'})
   }
 
   onMounted(async () => {
     console.log(user.value)
+    console.log(user.username)
   });
 </script>
  
