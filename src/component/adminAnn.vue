@@ -1,5 +1,5 @@
 <script setup>
-import sidebar from "./sidebar.vue";
+import sidebar from "./Sidebar.vue";
 import { onMounted, ref, computed } from "vue";
 import { RouterLink } from "vue-router";
 import { time } from "../composable/time.js";
@@ -12,9 +12,10 @@ const show1 = ref(false);
 const show2 = ref(false);
 const searchTerm = ref("");
 const timezoneName = new Intl.DateTimeFormat().resolvedOptions().timeZone;
+let length = 0
 onMounted(async () => {
   data.value = await dataStore.getAnnData();
-  console.log(data.value);
+  length = data.value.length
   if (data.value.length === 0) {  
     show1.value = true;
   } else {
@@ -80,82 +81,78 @@ const filteredData = computed(() => {
           </div>
         
           <div class="h-full">
-            <div class="flex justify-center flex-grow bg-white overflow-hidden">
-              <div class="overflow-y-scroll h-[612px]">
-                <table class="w-full">
-                  <thead class="bg-gray-400 text-black">
-                    <tr>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                  <table class="w-[96em] mx-auto flex flex-col ">
+                  <thead class=" bg-gray-400 text-black rounded-t-lg">
+                    <tr class="flex  w-full">
+                      <th class="w-[5.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         No.
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                      <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Title
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                      <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Category
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                      <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Publish Date
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                      <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Close Date
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                      <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Display
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                      <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         User Views
                       </th>
-                      <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                      <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                         Action
                       </th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-gray-200 divide-none text-black text-l">
+                  <tbody class="divide-y flex flex-col divide-gray-200 divide-none overflow-y-auto h-[608px] text-black text-l rounded-b-lg shadow-md">
                     <tr
-                      class="flex-col-reverse ann-item"
+                      class="flex  text-center ann-item" 
                       v-for="(item, index) in filteredData"
                       :key="item.id"
-                      :class="index % 2 == 0 ? 'bg-gray-200' : 'bg-white-950'"
+                      :class="[index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100', index == length ? 'rounded-b-lg':'']"
                     >
-                      <td class="px-6 py-4 whitespace-nowrap">
+                      <td class="w-[5.5%] px-6 py-4 whitespace-nowrap">
                         {{ ++index }}
                       </td>
-                      <div class="ann-title w-full">
-                        <td class="px-6 py-4 whitespace-nowrap ann-title font-sans w-full">
+                        <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-title font-sans ">
                           {{ item.announcementTitle }}
                         </td>
-                      </div>
-                      <td class="px-6 py-4 whitespace-nowrap ann-category font-sans">
+                      <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-category font-sans">
                         {{ item.announcementCategory }}
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap ann-publish-date font-sans">
+                      <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-publish-date font-sans">
                         {{ item.publishDate == null ? "-" : time(item.publishDate) }}
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap ann-close-date font-sans">
+                      <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-close-date font-sans">
                         {{ item.closeDate == null ? "-" : time(item.closeDate) }}
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap ann-display font-sans" 
-                        :class="item.announcementDisplay == 'Y' ? 'bg-green-200 border-b-4 border-green-300' : 'bg-red-200 border-b-4 border-red-300'">
+                      <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-display font-sans" 
+                        :class="item.announcementDisplay == 'Y' ? 'bg-green-200 drop-shadow-md' : 'bg-red-200 border-b-4 border-red-300'">
                         <div class="flex justify-center">
                           {{ item.announcementDisplay }}
                         </div>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap ann-counter font-sans">
+                      <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-counter font-sans">
                       <div class="flex justify-center text-black">
                         {{ item.viewer == null ? "0" : item.viewer }}
                       </div>
                       </td>
-                      <td class="flex flex-row px-6 py-4 whitespace-nowrap space-x-2">
+                      <td class="w-[13.5%] flex flex-row justify-center px-6 py-4 whitespace-nowrap space-x-2">
                         <router-link :to="{ name: 'adminAnnDetail', params: { annId: item.id } }">
                           <div class="ann-button">
-                            <button class="text-2xl px-4 py-2 rounded-md bg-green-400 hover:bg-green-500 ann-button" >
+                            <button class="transition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md bg-green-400 hover:bg-green-500 ann-button" >
                               View
                             </button>
                           </div>
                         </router-link>
 
-                        <button @click="deleteAnn(item.id)" class="text-2xl px-4 py-2 rounded-md bg-red-400 hover:bg-red-500 ann-button ann-delete">
+                        <button @click="deleteAnn(item.id)" class="transition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md bg-red-400 hover:bg-red-500 ann-button ann-delete">
                           Delete
                         </button>
                       </td>
@@ -163,13 +160,11 @@ const filteredData = computed(() => {
                   </tbody>
                 </table>
               </div>
+              </div>
             </div>
           </div>
 
         </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <style  lang="css" scoped>

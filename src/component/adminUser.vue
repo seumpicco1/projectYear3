@@ -1,5 +1,5 @@
 <script setup>
-import sidebar from "./sidebar.vue";
+import sidebar from "./Sidebar.vue";
 import { onMounted, ref } from "vue";
 import { time } from "../composable/time.js";
 import { useDataStore } from "../composable/dataHandlerPinia";
@@ -10,6 +10,7 @@ const data = ref([])
 const userId = ref(null);
 const isModalVisible = ref(false);
 const name = ref("")
+let length = 0
 
 const showModal = (id, namee) => {
   isModalVisible.value = !isModalVisible.value;
@@ -21,6 +22,7 @@ const showModal = (id, namee) => {
 
 onMounted(async () => {
   data.value = await dataStore.getUserData();
+  length = data.value.length
   if (data.value.length === 0) {
     show1.value = true;
   } else {
@@ -66,24 +68,24 @@ const show2 = ref(false)
     </div>
   </div>
 
-  <div class="w-full h-full bg-white">
+  <div class="w-screen h-screen bg-white">
 
     <div v-show="show1">
       <h1 class="font-bold Announcement text-6xl">No Users</h1>
     </div>
 
     <div v-show="show2">
-      <div class="flex flex-row">
+      <div class="flex">
 
-        <div class="flex-grow">
+        <div class="flex">
           <sidebar/>
         </div>
 
         <div class="flex flex-col w-full text-black">
           <div class="flex justify-center font-semibold text-5xl pt-5">User Management</div>
-          <div class="flex flex-col w-full text-black">
-            <div class="flex flex-row mb-5">
-                
+          <div class="flex flex-col w-full ">
+            <div class="flex mb-5">
+
               <div class="font-bold text-xl pt-8 pl-10">
                 Date/Time shown in Timezone&nbsp; 
                 <span class="text-blue-600">{{ timezoneName }}</span>
@@ -100,71 +102,71 @@ const show2 = ref(false)
             </div>
           </div>
 
-      <div class="h-full">
-        <div class="flex justify-center flex-grow bg-white overflow-hidden">
-           <div class="overflow-y-scroll h-[612px]">
-              <table class="w-full">
-                <thead class="bg-gray-400 text-black">
-              <tr>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+      <div class="h-full ">
+        <!-- <div class="flex  justify-center flex-grow bg-white overflow-hidden">
+           <div class="overflow-y-auto rounded-lg h-[620px] w-[1540px]"> -->
+              <table class="w-[96em] mx-auto flex flex-col">
+                <thead class="bg-gray-400 text-black rounded-t-lg">
+              <tr class="flex  w-full">
+                <th class="w-[5.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   No.
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Username
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Name
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Email
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Role
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Created On
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Updated On
                 </th>
-                <th class="px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
+                <th class="w-[13.5%] px-6 py-3 text-xl font-extrabold text-black-500 tracking-wider">
                   Action
                 </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 divide-none text-black text-l font-sans">
-              <tr class="flex-col-reverse ann-item" v-for="(item, index) in data" :key="item.id"
-                :class="index % 2 == 0 ? 'bg-gray-200' : 'bg-white-950'">
-                <td class="px-6 py-4 whitespace-nowrap">
+            <tbody class="divide-y flex flex-col divide-gray-200 divide-none overflow-y-auto h-[608px] text-black text-l rounded-b-lg" :class="length >= 8?'shadow-md':''">
+              <tr class="flex  text-center ann-item" v-for="(item, index) in data" :key="item.id"
+                :class="[index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100', index == length-1 ? 'rounded-b-lg shadow-md':'']">
+                <td class="w-[5.5%] px-6 py-4 whitespace-nowrap">
                   {{ ++index }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap ann-username">
+                <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-username">
                   {{ item.username }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap ann-name">
+                <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-name">
                   {{ item.name }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap ann-email">
+                <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-email">
                   {{ item.email }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap ann-role">
+                <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-role">
                   {{ item.role }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="w-[13.5%] px-6 py-4 whitespace-nowrap">
                   <div class="flex justify-center">
                     <span class="ann-created-on">{{ time(item.createdOn) }}</span>
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap ann-updated-on">
+                <td class="w-[13.5%] px-6 py-4 whitespace-nowrap ann-updated-on">
                   <div class="flex justify-center">
                     {{ time(item.updatedOn) }}
                   </div>
                 </td>
-                <td class="flex flex-row px-6 py-4 whitespace-nowrap space-x-2">
+                <td class="w-[13.5%] flex flex-row justify-center px-6 py-4 whitespace-nowrap space-x-2">
 
                   <router-link :to="{ name: 'adminUserEdit', params: { userId: item.id } }">
                     <div>
-                      <button class="text-2xl px-4 py-2 rounded-md hover:bg-green-500 bg-green-400 ann-button">
+                      <button class="transition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md hover:bg-green-500 bg-green-400 ann-button ">
                         Edit
                       </button>
                     </div>
@@ -172,7 +174,7 @@ const show2 = ref(false)
 
                   <div>
                     <button @click="showModal(item.id, item.username)"
-                      class="text-2xl px-4 py-2 rounded-md hover:bg-red-500 bg-red-400 ann-button">
+                      class="transition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md hover:bg-red-500 bg-red-400 ann-button">
                       Delete
                     </button>
                   </div>
@@ -185,8 +187,6 @@ const show2 = ref(false)
     </div>
     </div>
   </div>
-</div>
- </div>
 </template>
  
 <style lang="css" scoped>

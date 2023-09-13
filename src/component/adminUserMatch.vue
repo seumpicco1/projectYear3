@@ -41,7 +41,7 @@ const passwordMatch = async (user) => {
 
       <div class="w-full">
         <div class="flex flex-col h-full justify-center items-center">
-            <div class="box-content h-1/2 w-1/2 p-4 border-4 text-black">
+            <div class="box-content h-1/2 w-1/2 p-4 rounded-xl shadow-lg border-4 text-black">
 
               <div class="text-4xl font-semibold pt-4 pl-4">
                 Match Password
