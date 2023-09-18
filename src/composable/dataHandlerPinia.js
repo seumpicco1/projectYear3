@@ -154,32 +154,38 @@ export const useDataStore = defineStore('Data',()=>{
         },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
-      console.log("Create successfully");
+      // console.log(JSON.parse(await res.text()).detail);
+      if(res.status == 400){
+        // alert('Not Unique')
+        throw JSON.parse(await res.text()).detail
+      }else if (res.ok) {
+        console.log("Create successfully");
       } else throw new error("Error, create data!");
     } catch (error) {
       console.log(error);
+      throw error
     }
   }
   
   const putUpdateUser = async (data) => {
     try {
-      const response = await fetch(`${API_USER}/${data.id}`, {
+      const res = await fetch(`${API_USER}/${data.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-  
-      if (response.ok) {
-        const updatedData = await response.json();
-        data.value = updatedData;
+      if(res.status === 400){
+        throw JSON.parse(await res.text()).detail
+      }
+       else if (res.ok) {
+        console.log('update success');
       } else {
-        console.error('Failed to update user:', response.status);
+        console.error('Failed to update user:', res.status);
       }
     } catch (error) {
-      console.error('An error occurred while updating user:', error);
+      throw error
     }
   }
 

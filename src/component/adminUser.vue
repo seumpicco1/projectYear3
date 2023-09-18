@@ -1,5 +1,5 @@
 <script setup>
-import sidebar from "./Sidebar.vue";
+import sidebar from "./sidebar.vue";
 import { onMounted, ref } from "vue";
 import { time } from "../composable/time.js";
 import { useDataStore } from "../composable/dataHandlerPinia";
@@ -166,8 +166,8 @@ const show2 = ref(false)
 
                   <router-link :to="{ name: 'adminUserEdit', params: { userId: item.id } }">
                     <div>
-                      <button class="transition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md hover:bg-green-500 bg-green-400 ann-button ">
-                        Edit
+                      <button class="traansition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md hover:bg-green-500 bg-green-400 ann-button ">
+                        edit
                       </button>
                     </div>
                   </router-link>
@@ -175,7 +175,7 @@ const show2 = ref(false)
                   <div>
                     <button @click="showModal(item.id, item.username)"
                       class="transition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md hover:bg-red-500 bg-red-400 ann-button">
-                      Delete
+                      delete
                     </button>
                   </div>
                 </td>

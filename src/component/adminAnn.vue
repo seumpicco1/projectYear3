@@ -1,5 +1,5 @@
 <script setup>
-import sidebar from "./Sidebar.vue";
+import sidebar from "./sidebar.vue";
 import { onMounted, ref, computed } from "vue";
 import { RouterLink } from "vue-router";
 import { time } from "../composable/time.js";
