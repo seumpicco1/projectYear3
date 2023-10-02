@@ -12,10 +12,9 @@ const show1 = ref(false);
 const show2 = ref(false);
 const searchTerm = ref("");
 const timezoneName = new Intl.DateTimeFormat().resolvedOptions().timeZone;
-let length = 0
+
 onMounted(async () => {
   data.value = await dataStore.getAnnData();
-  length = data.value.length
   if (data.value.length === 0) {  
     show1.value = true;
   } else {
@@ -115,7 +114,7 @@ const filteredData = computed(() => {
                       class="flex  text-center ann-item" 
                       v-for="(item, index) in filteredData"
                       :key="item.id"
-                      :class="[index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100', index == length ? 'rounded-b-lg':'']"
+                      :class="[index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100', index == data.length ? 'rounded-b-lg':'']"
                     >
                       <td class="w-[5.5%] px-6 py-4 whitespace-nowrap">
                         {{ ++index }}

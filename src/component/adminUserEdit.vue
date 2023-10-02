@@ -22,7 +22,7 @@ const submit = async (user) => {
         await dataStore.putUpdateUser(user)
         router.push({ name: "adminUser" })
     }catch(error){
-      console.log(error);
+      console.log(error.value);
         errorField.value = {}
         error.forEach(er => {
         errorField.value[er.field] = er.errorMessage

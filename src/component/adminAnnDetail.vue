@@ -6,7 +6,6 @@ import { time } from '../composable/time.js'
 import { useDataStore } from "../composable/dataHandlerPinia";
 
 const dataStore = useDataStore()
-
 const data = ref([]);
 const showDetail = ref(false)
 const showNopage = ref(false)

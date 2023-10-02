@@ -7,18 +7,10 @@ import { RouterLink } from "vue-router";
 
 const dataStore = useDataStore()
 const data = ref([])
-const userId = ref(null);
 const isModalVisible = ref(false);
-const name = ref("")
+const deleteUsername = ref("");
+const userId = ref(null);
 let length = 0
-
-const showModal = (id, namee) => {
-  isModalVisible.value = !isModalVisible.value;
-  name.value = namee;
-  userId.value = id;
-  console.log(name.value);
-
-};
 
 onMounted(async () => {
   data.value = await dataStore.getUserData();
@@ -31,10 +23,22 @@ onMounted(async () => {
 
 });
 
-const deleteUserFunc = async (id) => {
+const showDeleteModal = (id, username) => {
+  isModalVisible.value = true
+  deleteUsername.value = username;
+  userId.value = id;
+  console.log(username);
+  console.log(id);
+};
+
+const deleteUser = async (id) => {
+
   data.value = await dataStore.deleteUser(id)
-  data.value.username = name
-  console.log(userId.value);
+  // data.value.username = name
+  isModalVisible.value = false
+}
+
+const closeDeleteModal = async () =>{
   isModalVisible.value = false
 }
 
@@ -45,24 +49,23 @@ const show2 = ref(false)
 </script>
  
 <template>
-  <div v-show="isModalVisible">
-    <div class="bg-red-300 h-44 ">
-      <div class="space-x-28  ">
-        <div class="space-x-5 ">
+  <div v-if="isModalVisible" class="fixed inset-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50">
+    </div>
 
-          <div class="text-white text-7xl flex justify-center ">Do you want to delete
-            <span class=" pl-8 text-black"> {{ name.toLocaleUpperCase() }}?
-            </span>
-          </div>
-          <div class="flex justify-center space-x-8 "> <button @click="deleteUserFunc(userId)"
-              class=" h-15 mt-9 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-              Confirm
-            </button>
-            <button @click="isModalVisible = false"
-              class=" mt-9 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 border border-red-700 rounded">
-              Cancel
-            </button>
-          </div>
+    <div class="modal-container bg-white w-10/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <!-- Modal content -->
+      <div class="modal-content py-4 text-left px-6">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold">Do you want to delete {{ deleteUsername }}? </h2>
+        </div>
+        <div class="text-right space-x-3">
+          <button @click="deleteUser(userId)" class="px-4 py-2 text-white bg-green-400 hover:bg-green-500 rounded">
+            Confirm
+          </button>
+          <button @click="closeDeleteModal()" class="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -173,11 +176,12 @@ const show2 = ref(false)
                   </router-link>
 
                   <div>
-                    <button @click="showModal(item.id, item.username)"
+                    <button @click="showDeleteModal(item.id, item.username)"
                       class="transition duration-300 ease-in-out hover:scale-105 text-xl px-2 py-2 rounded-md hover:bg-red-500 bg-red-400 ann-button">
                       delete
                     </button>
                   </div>
+
                 </td>
               </tr>
             </tbody>

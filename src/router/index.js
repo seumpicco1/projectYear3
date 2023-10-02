@@ -9,11 +9,13 @@ import adminUser from "../component/adminUser.vue"
 import adminUserCreate from "../component/adminUserCreate.vue"
 import adminUserEdit from "../component/adminUserEdit.vue"
 import adminUserMatch from "../component/adminUserMatch.vue"
+import login from "../component/login.vue"
 
-const router = createRouter({
+const router = createRouter({ 
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: 'c',
   routes: [
+    
     {
       path: "/admin/announcement",
       name: "adminAnn",
@@ -63,6 +65,11 @@ const router = createRouter({
       path: "/admin/user/match",
       name: "adminUserMatch",
       component: adminUserMatch
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: login
     },
   ],
 });
