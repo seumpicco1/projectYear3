@@ -9,6 +9,8 @@ const API_CAT = import.meta.env.VITE_ROOT_API + "/api/categories"
 const API_ANNUSER = import.meta.env.VITE_ROOT_API + "/api/announcements/pages"
 const API_ANNUSERCLOSE = import.meta.env.VITE_ROOT_API + "/api/announcements/pages?mode=close"
 const API_TOKEN = import.meta.env.VITE_ROOT_API + "/api/token"
+const API_OTP = import.meta.env.VITE_ROOT_API + "/api/otps"
+const API_FILE = import.meta.env.VITE_ROOT_API + "/api/files"
 
 export const useDataStore = defineStore('Data', () => {
 
@@ -24,9 +26,10 @@ export const useDataStore = defineStore('Data', () => {
           "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
         }
       })
-      console.log(res.status);
+      // console.log(res.);
       if (res.ok) {
         const result = await res.json()
+        // console.log(result);
         annData.value = result
         return annData.value
       }
@@ -43,9 +46,12 @@ export const useDataStore = defineStore('Data', () => {
 
   const getOneAnnData = async (id, count = true) => {
     try {
-      const res = await fetch(`${API_ANN}/${id}${count ? `?count=${count}` : ''}`)
+        const res = await fetch(`${API_ANN}/${id}${count ? `?count=${count}` : ''}`)
+        // console.log(res.body);
       if (res.ok) {
         const result = await res.json()
+        console.log(result);
+        result.file =  convertFile(result.file)
         return result
       }
       if (res.status === 400 || res.status === 404) {
@@ -57,17 +63,24 @@ export const useDataStore = defineStore('Data', () => {
     }
   }
 
-  const postCreateAnn = async (data) => {
+  const postCreateAnn = async (anmt,file) => {
+
     try {
       const res = await fetch(`${API_ANN}`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(anmt)
       });
       if (res.ok) {
+        const data = await res.json()
+        console.log(data.id);
+        const fileRes = await uploadFile(file,data.id)
+        if(fileRes.ok){
+          console.log("file upload successfully");
+        }
         console.log("Create successfully");
       }else if(res.status === 401){
         getNewAccessToken()
@@ -79,7 +92,7 @@ export const useDataStore = defineStore('Data', () => {
     }
   }
 
-  const putUpdateAnn = async (data) => {
+  const putUpdateAnn = async (data,fileList) => {
     try {
       const res = await fetch(`${API_ANN}/${data.id}`, {
         method: 'PUT',
@@ -90,6 +103,9 @@ export const useDataStore = defineStore('Data', () => {
         body: JSON.stringify(data),
       });
       if (res.ok) {
+        const fileRes = await uploadFile(fileList,data.id)
+        console.log("Edit and upload file successfully");
+      }else if(res.ok){
         console.log("Edit successfully");
       }else if(res.status === 401){
         getNewAccessToken()
@@ -134,7 +150,6 @@ export const useDataStore = defineStore('Data', () => {
         const result = await res.json()
         console.log(result);
         return result
-        
       }
       else { throw new error('Error, cannot get data') }
     } catch (error) {
@@ -268,6 +283,7 @@ export const useDataStore = defineStore('Data', () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
         },
         body: JSON.stringify(data),
       });
@@ -351,7 +367,8 @@ export const useDataStore = defineStore('Data', () => {
             location.reload()
           })
       }else if(res.status===401){
-        router.push({name : 'login'})
+        console.log("Unauthorized")
+        // router.push({name : 'login'})
       }
       else { throw new error('Error, cannot get token') }
     } catch (error) {
@@ -359,10 +376,103 @@ export const useDataStore = defineStore('Data', () => {
     }
   }
 
+ // =================================================================================================================================================
+  // Email 
 
+  const subscribeEmail = async (data) => {
+    try {
+      const res = await fetch(`${API_OTP}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      });
+      if (res.status === 400) {
+         throw new Error("Bad Request: " + res.statusText);
+      } else if (res.ok) {
+        console.log("Send successfully");
+      } else if(res.status === 401){
+        console.log("Send fail");
+      }
+      else throw new error("Error, send email!");
+    } catch (error) {
+      console.log(error);
+      throw error
+    }
+  }
 
+  const subscribeOtp = async (data) => {
+    // console.log(data);
+    try {
+      const res = await fetch(`${API_OTP}/check`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (res.status === 400) {
+        throw new Error("Bad Request: " + res.statusText);
+      } else if (res.ok) {
+        console.log("Send successfully");
+      } else if(res.status === 401){
+        console.log("Send fail");
+      }
+      else throw new error("Error, send otp!");
+    } catch (error) {
+      console.log(error);
+      throw error
+    }
+  }
 
-  return { getNewAccessToken,createNewToken, userData, annData, getAnnData, getOneAnnData, postCreateAnn, putUpdateAnn, deleteAnn, getActiveOrCloseMode, getUserData, deleteUser, getCategoriesId, getOneUserData, createUser, putUpdateUser, checkPasswordMatch }
+  const uploadFile = async(file,id)=>{
+    const formData = new FormData();
+    for (let i = 0; i < file.length; i++) {
+      formData.append("file",file[i])
+    }
+    try {
+      const res = await fetch(`${API_FILE}/upload/${id}`, {
+        method: "POST",
+        headers:{
+          "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+        }, 
+        body: formData
+      })
+      if (res.ok) {
+        console.log("upload successfully");
+      }
+      else throw new error("Error, create data!");
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  const convertFile = (files)=>{
+
+    const blobs = files.map(file => {
+      try {
+        const binary = atob(file.data)
+
+        const byteNumbers = new Array(binary.length)
+        for (let i = 0; i < binary.length; i++) {
+          byteNumbers[i] = binary.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        return new Blob([byteArray], { type: file.name.split(".")[1] })
+      } catch (error) {
+        console.error(error);
+      }
+      
+      // const convertedFile = new File([blob], file.name, { type: 'application/octet-stream' });
+      // console.log(convertedFile);
+    });
+    const conFile = blobs.map((blob, index)=> new File([blob], files[index].name))
+    return conFile
+  }
+
+  return { getNewAccessToken,createNewToken, userData, annData, getAnnData, getOneAnnData, postCreateAnn, putUpdateAnn, deleteAnn, getActiveOrCloseMode, getUserData, deleteUser, getCategoriesId, getOneUserData, createUser, putUpdateUser, checkPasswordMatch, subscribeEmail, subscribeOtp }
 })
 
 if (import.meta.hot) {

@@ -15,18 +15,26 @@ const data = ref({
 });
 
 const category = ref([])
+const files = ref([])
 const date = ref({});
 const isChecked = ref(false);
 const cloneData = ref({});
 const cloneDate = ref({})
 
 onMounted(async () => {
-  data.value = await dataStore.getOneAnnData(params.annId,false);
+  let allFetch = await dataStore.getOneAnnData(params.annId,false);
+  data.value = allFetch.announcement
+  files.value = allFetch.file
   cloneData.value = Object.assign({},data.value)
   category.value = await dataStore.getCategoriesId()
   dateTimeFCheck()
   cloneDate.value = Object.assign({},date.value)
   isChecked.value = checkDisplay()
+
+  localStorage.setItem("currentEdit", data.value.announcementOwner)
+  console.log(localStorage.getItem("currentEdit"));
+
+  console.log(files.value)
 })
 
 const isValid = computed(() => {
@@ -141,17 +149,28 @@ const checkYN = () => {
   }
 }
 
-const createAnn = async (data) => {
+const createAnn = async (data,filesList) => {
   dateFormat();
   checkYN ()
-  await dataStore.putUpdateAnn(data);
+  await dataStore.putUpdateAnn(data,filesList)
   router.push({ name: "adminAnn" });
+};
+
+const chooseBinaryFile = (event) => {
+  const file = event.target.files[0];
+  files.value.push(file);
+  console.log(files.value)
+};
+
+const deleteFile = (index) => {
+  files.value.splice(index, 1);
+  
 };
 </script>
 
 <template>
   <div id="registration-form">
-	<div class='fieldset'>
+	<div class='fieldset text-slate-500'>
     <legend >Edit Announcement Detail:</legend>
 	
 			<div class='row mt-5'>
@@ -205,12 +224,16 @@ const createAnn = async (data) => {
         </div>
         
 			</div>
-
-      <!-- <button class="border-4 p-3 rounded-xl text-xl text-black hover:bg-green-100 ann-button w-full" @click="test">
-    test
-  </button> -->
   
-  <button :disabled="!isValid || !isValidDes || isValidEdit || isValidDate" :class="!isValid || !isValidDes || isValidEdit || isValidDate ?'cursor-not-allowed hover:none':'hover:bg-blue-600'" class="border-4 p-3 rounded-xl text-xl text-black ann-button w-full bg-blue-500" @click="createAnn(data)"> 
+  <form id="file">
+    <input :disabled="files.length === 5" type="file" multiple accept=".jpg,.jpeg,.png,.pdf" @change="chooseBinaryFile">
+    <div v-for="(file, index) in files" :key="index" class="flex flex-row items-center">
+      <p>{{ file?.name }}</p>
+      <button class="btn bg-error p-2.5 mt-1 ml-2 outline-none text-white" @click="deleteFile(index)">X</button>
+    </div>
+  </form>
+
+  <button :disabled="!isValid || !isValidDes || isValidEdit || isValidDate" :class="!isValid || !isValidDes || isValidEdit || isValidDate ?'cursor-not-allowed hover:none':'hover:bg-blue-600'" class="border-4 p-3 rounded-xl text-xl text-black ann-button w-full bg-blue-500" @click="createAnn(data,files)"> 
     Edit
   </button>
  

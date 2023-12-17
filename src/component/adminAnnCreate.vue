@@ -5,6 +5,7 @@ import { useDataStore } from "../composable/dataHandlerPinia";
 
 const dataStore = useDataStore()
 
+const files = ref([])
 const date = ref({})
 const myQuill = ref('')
 const data = ref({
@@ -49,6 +50,7 @@ const publishDateCheck =()=>{
     return false
   }
 }
+
 const closeDateCheck =()=>{
   dateFormat()
   console.log(new Date(data.value.publishDate))
@@ -84,10 +86,9 @@ const dateFormat = ()=>{
   data.value.closeDate = isNaN(closeDate) ? null : closeDate.toISOString()
 }
 
-const createAnn = async (data)=>{
-  console.log(data);
+const createAnn = async (files,data)=>{
   dateFormat()
-  await dataStore.postCreateAnn(data)
+  await dataStore.postCreateAnn(data,files)
   router.push({name : 'adminAnn'})
   }
 
@@ -98,16 +99,25 @@ const countTitle = computed(()=>{
 const countDes = computed(()=>{
   return data.value.announcementDescription.length
 })
- 
+
+const chooseBinaryFile = (event) => {
+  const file = event.target.files[0];
+  files.value.push(file);
+  console.log(files.value)
+};
+
+const deleteFile = (index) => {
+  files.value.splice(index, 1);
+};
 </script>
 
 <template>
   <div id="registration-form">
-	<div class='fieldset'>
-    <legend >Create Announcement:</legend>
+	<div class='fieldset text-slate-500'>
+    <legend >Create Announcement</legend>
 	
 			<div class='row mt-5'>
-				<label  class="text-2xl pl-5 " wrfor='firstname'>Title</label><span class="bg-blue-300">{{ countTitle }} / 200  </span>
+				<label  class="text-2xl pl-5 " wrfor='firstname'>Title</label>
 				<input maxlength="200" class="w-52 ann-title" v-model="data.announcementTitle"  type="text" data-required="true" required>
 			</div>
 			<div class='row mt-5'>
@@ -155,19 +165,29 @@ const countDes = computed(()=>{
           <label for="display" class="text-2xl">Check to show this announcement</label>
         </div>
 			</div>
-  <button :disabled="!isValid || !isValidDes || !isValidCate || isValidDate  " :class="!isValid || !isValidDes || !isValidCate || isValidDate?'cursor-not-allowed hover:none':'hover:bg-green-100'"  class="border-4 p-3 rounded-xl text-xl text-black ann-button w-full bg-blue-500"   @click="createAnn(data)">
-    Submit
-  </button>
- 
-  <button class=" bg-red-300 border-4 p-3 rounded-xl text-xl text-black hover:bg-red-400 ann-button w-full " @click="clearList()">
-    Clear 
-  </button>
-    
-  <RouterLink :to="{ name: 'adminAnn' }">
-    <button class=" ann-button bg-red-500 border-4 p-3 rounded-xl text-xl text-black hover:bg-red-600 ann-button w-full">
-      Cancel
+
+      <form id="file">
+        <input :disabled="files.length === 5" type="file" multiple accept=".jpg,.jpeg,.png,.pdf" @change="chooseBinaryFile()">
+        <div v-for="(file, index) in files" :key="index" class="flex flex-row items-center">
+          <p>{{ file?.name }}</p>
+          <button class="btn bg-error p-2.5 mt-1 ml-2 outline-none text-white" @click="deleteFile(index)">X</button>
+        </div>
+      </form>
+
+    <button :disabled="!isValid || !isValidDes || !isValidCate || isValidDate" :class="!isValid || !isValidDes || !isValidCate || isValidDate?'cursor-not-allowed hover:none':'hover:bg-green-100'" 
+      class="border-4 p-3 rounded-xl text-xl text-black ann-button w-full bg-blue-500"   @click="createAnn(files,data)">
+      Submit
     </button>
-  </RouterLink>
+
+    <button class=" bg-red-300 border-4 p-3 rounded-xl text-xl text-black hover:bg-red-400 ann-button w-full " @click="clearList()">
+      Clear 
+    </button>
+      
+    <RouterLink :to="{ name: 'adminAnn' }">
+      <button class=" ann-button bg-red-500 border-4 p-3 rounded-xl text-xl text-black hover:bg-red-600 ann-button w-full">
+        Cancel
+      </button>
+    </RouterLink>
 	</div>
 
 </template>

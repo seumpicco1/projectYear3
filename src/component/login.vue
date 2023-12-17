@@ -1,7 +1,9 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useDataStore } from "../composable/dataHandlerPinia";
+
+
 
 const router = useRouter()
 const dataStore = useDataStore()
@@ -11,53 +13,37 @@ const user = ref({
 })
 
 const spinner = ref(false)
+const warning = ref(false)
 const userText = ref(false)
 const passwordText = ref(false)
-const passwordNotmatch = ref(false)
 
 const loginFunction = async (x) => {
     try {
-        if (user.value.username.length === 0 && user.value.password.length === 0) {
-            userText.value = true
-            passwordText.value = true
+        if (user.value.username.length === 0 || user.value.password.length === 0) {
+            warning.value = true
             setTimeout(() => {
-                userText.value = false
-                passwordText.value = false
-            }, 700)
-
-        }
-        if (user.value.username.length === 0) {
-            userText.value = true
+                warning.value = false
+            }, 2000)
+        } else {
+            const result = await dataStore.createNewToken(x)
+            spinner.value = true
             setTimeout(() => {
-                userText.value = false
-
-            }, 700)
+                spinner.value = false
+                router.push({ name: "userAnn" }).then(() => {
+                    setTimeout(() => {
+                        router.go(0)
+                    }, 20)
+                });
+            }, 700);
+            return result
         }
-        if (user.value.password.length === 0) {
-            passwordText.value = true
-            setTimeout(() => {
-                passwordText.value = false
-
-            }, 700)
-        }
-
-        const result = await dataStore.createNewToken(x)
+    } catch (error) {
         spinner.value = true
         setTimeout(() => {
-            router.push({ name: "adminAnn" })
-            spinner.value = false
-        }, 1000)
-
-        return result
-
-        
-    } catch (error) {
-                spinner.value =true
-        setTimeout(() => {
 
             spinner.value = false
 
-        }, 700)
+        }, 2000)
 
         console.error(error)
     }
@@ -66,8 +52,6 @@ const loginFunction = async (x) => {
     console.log(user.value.password);
 
 }
-
-
 
 </script>
 <template>
@@ -86,23 +70,22 @@ const loginFunction = async (x) => {
             <div class="mb-4">
                 <label for="username" class="block text-gray-600">Username</label>
                 <input v-model="user.username" type="text" id="username" name="username"
-                    class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+                    class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500 bg-white"
                     autocomplete="off">
-                <p v-show="userText" class="text-red-500"> username not empty</p>
             </div>
 
             <div class="mb-4">
                 <label for="password" class="block text-gray-600">Password</label>
-                <input v-model="user.password" id="password" name="password"
-                    class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+                <input v-model="user.password" type="password" id="password" name="password"
+                    class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500 bg-white"
                     autocomplete="off">
-                <p v-show="passwordText" class="text-red-500"> password not empty</p>
+                <p v-show="warning" class="text-red-500"> Invalid username or password</p>
             </div>
             <!-- Remember Me Checkbox -->
             <!-- <div class="mb-4 flex items-center">
-      <input type="checkbox" id="remember" name="remember" class="text-blue-500">
-      <label for="remember" class="text-gray-600 ml-2">Remember Me</label>
-    </div> -->
+                <input type="checkbox" id="remember" name="remember" class="text-blue-500">
+                <label for="remember" class="text-gray-600 ml-2">Remember Me</label>
+            </div> -->
             <!-- Forgot Password Link -->
             <div class="mb-6 text-blue-500">
 

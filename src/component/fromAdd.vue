@@ -14,14 +14,14 @@
     
         const trimBetweenPassword = computed(() => {
             if (password.value !== undefined && password.value !== null) {
-                return password.value.replace(/\s+/g, '') // ใช้ regex เพื่อตัดช่องว่างทั้งหมด
+                return password.value.replace(/\s+/g, '') 
             }
             return undefined
         })
 
         const trimBetweenConfirmPassword = computed(() => {
             if (confirmPassword.value !== undefined && confirmPassword.value !== null) {
-                return confirmPassword.value.replace(/\s+/g, '') // ใช้ regex เพื่อตัดช่องว่างทั้งหมด
+                return confirmPassword.value.replace(/\s+/g, '') 
             }
             return undefined
         })
@@ -50,87 +50,86 @@
 </script>
  
 <template>
-    
-    <form @submit.prevent="createUser()" class='flex flex-col text-black ml-5'>
-        <div class="text-4xl font-semibold pt-5 pl-3">
-            Create New User
-        </div>
-
-        <div class='mt-2 ml-10'>
-            <label class="text-2xl">Username</label>
-            <div>
-                <input v-model.trim="user.username" maxlength="45" class="w-10/12 ann-username" type="text" required>
+    <div class="flex justify-center items-center">
+        <form @submit.prevent="createUser()" class='mt-5 box-content h-1/2 w-1/3 flex flex-col items-start p-6 rounded-xl shadow-lg border-8 text-black border-gray-200 bg-gray-100 '>
+            <div class="text-3xl font-bold pl-2">
+                Create New User
             </div>
             
-            <div v-if="errorField?.username" class="text-semibold text-red-500 ann-error-username">{{errorField.username}}</div>
-        </div>
-
-        <div class='mt-2 ml-10'>
-            <label class="text-2xl">Password</label>
-            {{ trimBetweenPassword }}
-            <div>
-                <input v-model.trim="password" minlength="8" maxlength="14" class="w-10/12 ann-password" type="password" required>
-            </div>
-                            
-            <div v-if="errorField?.password " class="text-semibold text-red-500 ann-error-password">{{errorField.password}}</div>
-        </div>
-
-        <div class='mt-2 ml-10'>
-            <label class="text-2xl">Confirm Password</label>
-            {{ trimBetweenConfirmPassword }}
-            <div>
-                <input v-model.trim="confirmPassword" minlength="8" maxlength="14" class="w-10/12 ann-confirm-password" type="password" required>
+            <div class='pt-2 pl-10'>
+                <label class="text-xl">Username</label>
+                <div>
+                    <input v-model.trim="user.username" maxlength="45" class="w-80 rounded-lg ann-username" type="text" required>
+                </div>
+                
+                <div v-if="errorField?.username" class="text-semibold text-red-500 ann-error-username">{{errorField.username}}</div>
             </div>
 
-        </div>
-
-        <div class='mt-2 ml-10'>
-            <label class="text-2xl">Name</label>
-            <div>
-                <input  v-model.trim="user.name" maxlength="100" class="w-10/12 ann-name" type="text"  required>
+            <div class='pt-2 pl-10'>
+                <label class="text-xl">Password</label>
+                <div>
+                    <input v-model.trim="password" minlength="8" maxlength="14" class="w-80 rounded-lg ann-password" type="password" required>
+                </div>
+                                
+                <div v-if="errorField?.password " class="text-semibold text-red-500 ann-error-password">{{errorField.password}}</div>
             </div>
 
-            <div v-if="errorField?.name" class="text-semibold text-red-500 ann-error-name">{{errorField.name}}</div>
-        </div>
+            <div class='pt-2 pl-10'>
+                <label class="text-xl">Confirm Password</label>
+                <div>
+                    <input v-model.trim="confirmPassword" minlength="8" maxlength="14" class="w-80 rounded-lg ann-confirm-password" type="password" required>
+                </div>
 
-        <div class='mt-2 ml-10'>
-            <label class="text-2xl">Email</label>
-            <div>
-                <input v-model.trim="user.email" maxlength="150" class="w-10/12 ann-email" type="email" required>
             </div>
 
-            <div v-if="errorField?.email" class="text-semibold text-red-500 ann-error-email">{{errorField.email}}</div>
-        </div>
+            <div class='pt-2 pl-10'>
+                <label class="text-xl">Name</label>
+                <div>
+                    <input  v-model.trim="user.name" maxlength="100" class="w-80 rounded-lg ann-name" type="text"  required>
+                </div>
 
-        <div class='mt-2 ml-10'>
-            <label class="text-2xl">Role</label>
-            <div>
-                <select v-model.trim="user.role " class="w-3/12 ann-role" required>
-                    <option value="admin">admin</option>
-                    <option value="announcer">announcer</option>
-                </select>
+                <div v-if="errorField?.name" class="text-semibold text-red-500 ann-error-name">{{errorField.name}}</div>
             </div>
-        </div>
-            
-        <div class='flex flex-row mt-8 ml-10 space-x-3 items-end'>
-            <button class="bg-white hover:bg-gray-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button" type="submit">
-                 Add
-            </button>
 
-            <router-link :to="{ name: 'adminUser' }">
-                <button class="bg-white hover:bg-red-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button">
-                    Cancel 
+            <div class='pt-2 pl-10'>
+                <label class="text-xl">Email</label>
+                <div>
+                    <input v-model.trim="user.email" maxlength="150" class="w-80 rounded-lg ann-email" type="email" required>
+                </div>
+
+                <div v-if="errorField?.email" class="text-semibold text-red-500 ann-error-email">{{errorField.email}}</div>
+            </div>
+
+            <div class='pt-2 pl-10'>
+                <label class="text-xl">Role</label>
+                <div>
+                    <select v-model.trim="user.role " class="w-40 ann-role rounded-lg" required>
+                        <option value="admin">admin</option>
+                        <option value="announcer">announcer</option>
+                    </select>
+                </div>
+            </div>
+                
+            <div class='flex flex-row mt-8 ml-10 space-x-3 items-end'>
+                <button class="bg-white hover:bg-gray-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button" type="submit">
+                    Add
                 </button>
-            </router-link>
 
-            <div v-if="!passwordMatch" class="text-red-500 text-xl font-semibold ann-error-password">
-                The password DOES NOT match
+                <router-link :to="{ name: 'adminUser' }">
+                    <button class="bg-white hover:bg-red-200 text-black border border-gray-400 rounded py-2 px-4 font-semibold ann-button">
+                        Cancel 
+                    </button>
+                </router-link>
+
+                <div v-if="!passwordMatch" class="text-red-500 text-xl font-semibold ann-error-password">
+                    The password DOES NOT match
+                </div>
             </div>
-        </div>
+            
+            
         
-           
-       
-    </form>
+        </form>
+    </div>
 </template>
  
 <style scoped>

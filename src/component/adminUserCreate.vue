@@ -32,6 +32,7 @@ import {ref,onMounted} from "vue"
   onMounted(async () => {
     console.log(user.value)
     console.log(user.username)
+    this.$router.push({ name: 'userProfile', params: { annOwner: 123 } });    
   });
 </script>
  
@@ -43,7 +44,7 @@ import {ref,onMounted} from "vue"
         <sidebar/>
       </div>
 
-      <div class="w-2/4 h-full">
+      <div class="w-full h-full">
         <fromAdd :user = "user" :errorField = "errorField" @submit = "submit"/>
       </div>
       

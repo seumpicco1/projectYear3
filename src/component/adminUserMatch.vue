@@ -62,25 +62,25 @@ const passwordMatch = async (user) => {
 
       <div class="w-full">
         <div class="flex flex-col h-full justify-center items-center">
-            <div class="box-content h-1/2 w-1/2 p-4 rounded-xl shadow-lg border-4 text-black">
+            <div class="box-content h-1/2 w-1/3 p-5 rounded-xl shadow-lg border-8 text-black border-gray-200 bg-gray-100">
 
               <div class="text-4xl font-semibold pt-4 pl-4">
                 Match Password
               </div>
 
               <div class="mt-8 ml-8">
-                <label class="text-2xl font-light">Username</label>
+                <label class="text-2xl font-medium">Username</label>
                 <div>
-                    <input v-model="user.username" minlength="1" maxlength="45" class="w-2/3 mt-1 ann-username" type="text" data-required="true" required>
+                    <input v-model="user.username" minlength="1" maxlength="45" class="w-80 mt-1 ann-username rounded-md" type="text" data-required="true" required>
                 </div>
               </div>
 
               <div class="mt-8 ml-8">
-                <label class="text-2xl font-light">Password</label>
+                <label class="text-2xl font-medium">Password</label>
                 <div>
-                    <input v-model="user.password" minlength="8" maxlength="14" class="w-2/3 mt-1 ann-password" 
+                    <input v-model="user.password" minlength="8" maxlength="14" class="w-80 mt-1 ann-password rounded-md" 
                     :type="passwordType" data-required="true" required >
-                    <button @click ="showPassword()">{{ btnText }} </button>
+                    <button class="ml-2 p-2 bg-gray-300 border-2 border-gray-500 rounded-xl" @click ="showPassword()">{{ btnText }} </button>
                     
                   </div>
                   

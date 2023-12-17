@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite --host 25.18.60.149",
+    "dev": "vite --host 25.42.142.20",
     "build": "vite build --base=/at3/",
     "preview": "vite preview",
     "cypress:open": "cypress open"
@@ -12,6 +12,7 @@
     "@vueup/vue-quill": "^1.2.0",
     "daisyui": "^2.51.6",
     "flowbite": "^1.6.5",
+    "jwt-decode": "^3.1.2",
     "pinia": "^2.0.36",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"

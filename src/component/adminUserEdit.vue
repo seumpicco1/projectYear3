@@ -44,7 +44,7 @@ const submit = async (user) => {
         <sidebar/>
       </div>
 
-      <div class="w-2/4 h-full">
+      <div class="w-full h-full">
         <fromEdit :user="user" :errorField = "errorField" @submit = "submit"/>
       </div>
    
